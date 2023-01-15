@@ -6,7 +6,7 @@ project 'raytracer'
     language 'C++'
     targetdir 'bin/%{ cfg.buildcfg }'
 
-    files { '*.hpp', '*.cpp' }
+    files { '*.h', '*.cc' }
 
     filter 'configurations:Debug'
         defines { 'DEBUG' }
