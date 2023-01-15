@@ -1,4 +1,7 @@
 Makefile
+*.make
 
 bin/*
-*.make
+obj/*
+
+*.ppm
