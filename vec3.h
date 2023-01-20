@@ -34,7 +34,7 @@ class vec3 {
     float length() const;
     float length_squared() const;
 
-    friend inline std::ostream & operator<<( std::ostream & os, const vec3 & v );
+    friend inline std::ostream & operator<<( std::ostream & out, const vec3 & v );
 
     friend inline vec3 operator+( const vec3 & u, const vec3 & v ) ;
     friend inline vec3 operator-( const vec3 & u, const vec3 & v );

@@ -58,8 +58,8 @@ float vec3::length_squared() const {
     return (m_values[0] * m_values[0] + m_values[1] * m_values[1] + m_values[2] * m_values[2]);
 }
 
-std::ostream & operator<<( std::ostream & os, const vec3 & v ) {
-    return os << v.m_values[0] << ' ' << v.m_values[1] << ' ' << v.m_values[2];
+std::ostream & operator<<( std::ostream & out, const vec3 & v ) {
+    return out << v.m_values[0] << ' ' << v.m_values[1] << ' ' << v.m_values[2];
 }
 
 vec3 operator+( const vec3 & u, const vec3 & v ) {
@@ -98,6 +98,6 @@ vec3 cross( const vec3 & u, const vec3 & v ) {
                  u.m_values[0] * v.m_values[1] - u.m_values[1] * v.m_values[0] );
 }
 
-vec3 inline_function( const vec3 & v ) {
+vec3 unit_vector( const vec3 & v ) {
     return v / v.length();
 }
