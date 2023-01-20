@@ -34,19 +34,55 @@ class vec3 {
     float length() const;
     float length_squared() const;
 
-    friend inline std::ostream & operator<<( std::ostream & out, const vec3 & v );
+    friend inline std::ostream & operator<<( std::ostream & out, const vec3 & v ) {
+        return out << v.m_values[0] << ' ' << v.m_values[1] << ' ' << v.m_values[2];
+    } 
 
-    friend inline vec3 operator+( const vec3 & u, const vec3 & v ) ;
-    friend inline vec3 operator-( const vec3 & u, const vec3 & v );
+    friend inline vec3 operator+( const vec3 & u, const vec3 & v ) {
+        return vec3( 
+            u.m_values[0] + v.m_values[0], 
+            u.m_values[1] + v.m_values[1], 
+            u.m_values[2] + v.m_values[2] 
+        );
+    }
+    friend inline vec3 operator-( const vec3 & u, const vec3 & v ) {
+        return vec3( 
+            u.m_values[0] - v.m_values[0], 
+            u.m_values[1] - v.m_values[1], 
+            u.m_values[2] - v.m_values[2] 
+        );
+    }
 
-    friend inline vec3 operator*( const vec3 & u, const vec3 & v );
-    friend inline vec3 operator*( float t, const vec3 & v );
-    friend inline vec3 operator*( const vec3 & v, float t );
-    friend inline vec3 operator/( const vec3 & v, float t );
+    friend inline vec3 operator*( const vec3 & u, const vec3 & v ) {
+        return vec3( 
+            u.m_values[0] * v.m_values[0], 
+            u.m_values[1] * v.m_values[1], 
+            u.m_values[2] * v.m_values[2] 
+        );
+    }
+    friend inline vec3 operator*( float t, const vec3 & v ) {
+        return vec3( t * v.m_values[0], t * v.m_values[1], t * v.m_values[2] );
+    }
+    friend inline vec3 operator*( const vec3 & v, float t ) {
+        return t * v;
+    }
+    friend inline vec3 operator/( const vec3 & v, float t ) {
+        return ( 1 / t ) * v;
+    }
 
-    friend inline vec3 dot( const vec3 & u, const vec3 & v );
-    friend inline vec3 cross( const vec3 & u, const vec3 & v );
-    friend inline vec3 unit_vector( const vec3 & v );
+    friend inline vec3 dot( const vec3 & u, const vec3 & v ) {
+        return u.m_values[0] * v.m_values[0]
+             + u.m_values[1] * v.m_values[1]
+             + u.m_values[2] * v.m_values[2];
+    }
+    friend inline vec3 cross( const vec3 & u, const vec3 & v ) {
+        return vec3( u.m_values[1] * v.m_values[2] - u.m_values[2] * v.m_values[1],
+                     u.m_values[2] * v.m_values[0] - u.m_values[0] * v.m_values[2],
+                     u.m_values[0] * v.m_values[1] - u.m_values[1] * v.m_values[0] );
+    }
+    friend inline vec3 unit_vector( const vec3 & v ) {
+        return v / v.length();
+    }
 };
 
 using point3 = vec3;
