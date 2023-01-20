@@ -1,3 +1,6 @@
+#include "colour.h"
+#include "vec3.h"
+
 #include <iostream>
 
 int main() {
@@ -8,15 +11,15 @@ int main() {
 
     for ( unsigned int j = 0; j < image_height; ++j ) {
         for ( unsigned int i = 0; i < image_width; ++i ) {
-            float r = float( i ) / ( image_width - 1 );
-            float g = float( image_height - 1 - j ) / ( image_height - 1 );
-            float b = 0.25f;
 
-            unsigned int ir = static_cast<unsigned int>( 255.999f * r );
-            unsigned int ig = static_cast<unsigned int>( 255.999f * g ); 
-            unsigned int ib = static_cast<unsigned int>( 255.999f * b );
+            colour pixel_colour( 
+                float( i ) / ( image_width - 1 ), 
+                float( image_height - 1 - j ) / ( image_height - 1 ), 
+                0.25f 
+            );
 
-            std::cout << ir << ' ' << ig << ' ' << ib << std::endl;
+            write_colour( std::cout, pixel_colour );
+            
             std::cerr << j + 1 << " lines scanned out of " << image_height << std::endl;
         }
     }
