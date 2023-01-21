@@ -70,7 +70,7 @@ class vec3 {
         return ( 1 / t ) * v;
     }
 
-    friend inline vec3 dot( const vec3 & u, const vec3 & v ) {
+    friend inline float dot( const vec3 & u, const vec3 & v ) {
         return u.m_values[0] * v.m_values[0]
              + u.m_values[1] * v.m_values[1]
              + u.m_values[2] * v.m_values[2];
