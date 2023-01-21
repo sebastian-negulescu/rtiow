@@ -3,23 +3,30 @@
 #include "ray.h"
 
 #include <iostream>
+#include <cmath>
 
-bool hit_sphere( const point3 & center, float radius, const ray & r ) {
+float hit_sphere( const point3 & center, float radius, const ray & r ) {
     vec3 oc = r.origin() - center;
-    float a = dot( r.direction(), r.direction() );
-    float b = 2.0f * dot( r.direction(), oc );
+    float a = r.direction().length_squared();
+    float half_b = dot( oc, r.direction() );
     float c = dot( oc, oc ) - radius * radius;
 
-    float descriminant = b * b - 4 * a * c;
-    return descriminant > 0;
+    float descriminant = half_b * half_b - a * c;
+    if ( descriminant < 0.0f ) {
+        return -1.0f;
+    } else {
+        return ( -half_b - sqrt( descriminant ) ) / a;
+    }
 }
 
 colour ray_colour( const ray & r ) {
-    if ( hit_sphere( point3( 0.0f, 0.0f, -1.0f ), 0.5f, r ) ) {
-        return colour( 1.0f, 0.0f, 0.0f );
+    float t = hit_sphere( point3( 0.0f, 0.0f, -1.0f ), 0.5f, r );
+    if ( t > 0.0f ) {
+        vec3 normal = unit_vector( r.at( t ) - vec3( 0.0f, 0.0f, -1.0f ) );
+        return 0.5f * colour( normal.x() + 1.0f, normal.y() + 1.0f, normal.z() + 1.0f );
     }
     vec3 unit_direction = unit_vector( r.direction() );
-    float t = 0.5f * ( unit_direction.y() + 1.0f );
+    t = 0.5f * ( unit_direction.y() + 1.0f );
     return ( 1.0f - t ) * colour( 1.0f ) + t * colour( 0.5f, 0.7f, 1.0f );
 }
 
