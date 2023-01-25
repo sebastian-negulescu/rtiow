@@ -19,9 +19,9 @@ bool sphere::hit( const ray & r, float t_min, float t_max, hit_record & record )
     float sqrt_d = sqrt( discriminant );
 
     float root = ( -half_b - sqrt_d ) / a;
-    if ( root < t_min || t_max > root ) {
+    if ( root < t_min || t_max < root ) {
         root = ( -half_b + sqrt_d ) / a;
-        if ( root < t_min || t_max > root ) {
+        if ( root < t_min || t_max < root ) {
             return false;
         }
     }
@@ -30,6 +30,7 @@ bool sphere::hit( const ray & r, float t_min, float t_max, hit_record & record )
     record.point = r.at( record.t );
     vec3 outward_normal = ( record.point - m_center ) / m_radius;
     record.set_face_normal( r, outward_normal );
+
 
     return true;
 }

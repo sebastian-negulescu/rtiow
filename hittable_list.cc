@@ -14,8 +14,12 @@ bool hittable_list::hit( const ray & r, float t_min, float t_max, hit_record & r
     for ( const std::shared_ptr< hittable > object : m_objects ) {
         if ( object->hit( r, t_min, t_max, temp_record ) ) {
             hit_anything = true;
-            min_distance = temp_record.t;
-            record = temp_record;
+            if ( temp_record.t < min_distance ) {
+                min_distance = temp_record.t;
+                record = temp_record;
+            }
         }
     }
+
+    return hit_anything;
 }
