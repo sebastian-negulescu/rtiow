@@ -29,13 +29,13 @@ vec3 vec3::operator-() const {
 float vec3::operator[]( int index ) const { return m_values[index]; }
 float & vec3::operator[]( int index ) { return m_values[index]; }
 
-vec3 & vec3::operator+=( const float amount ) {
-    m_values[0] += amount;
-    m_values[1] += amount;
-    m_values[2] += amount;
+vec3 & vec3::operator+=( const vec3 & vec ) {
+    m_values[0] += vec.m_values[0];
+    m_values[1] += vec.m_values[1];
+    m_values[2] += vec.m_values[2];
     return * this;
 }
-vec3 & vec3::operator-=( const float amount ) {
+vec3 & vec3::operator-=( const vec3 & amount ) {
     return * this += -amount;
 }
 

@@ -25,8 +25,8 @@ class vec3 {
     float operator[]( int index ) const;
     float & operator[]( int index );
 
-    vec3 & operator+=( const float amount );
-    vec3 & operator-=( const float amount );
+    vec3 & operator+=( const vec3 & amount );
+    vec3 & operator-=( const vec3 & amount );
 
     vec3 & operator*=( const float amount );
     vec3 & operator/=( const float amount );
