@@ -1,6 +1,8 @@
 #ifndef VEC3_H
 #define VEC3_H
 
+#include "helpers.h"
+
 #include <iostream>
 
 class vec3 {
@@ -33,6 +35,16 @@ class vec3 {
 
     float length() const;
     float length_squared() const;
+
+    inline static vec3 random() {
+        return vec3( random_float(), random_float(), random_float() );
+    }
+
+    inline static vec3 random( float min, float max ) {
+        return vec3( random_float( min, max ), random_float( min, max ), random_float( min, max ) );
+    }
+
+    vec3 random_in_unit_sphere();
 
     friend inline std::ostream & operator<<( std::ostream & out, const vec3 & v ) {
         return out << v.m_values[0] << ' ' << v.m_values[1] << ' ' << v.m_values[2];

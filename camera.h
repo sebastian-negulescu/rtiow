@@ -2,6 +2,8 @@
 #define CAMERA_H
 
 #include "helpers.h"
+#include "ray.h"
+#include "vec3.h"
 
 class camera {
     point3 m_origin;

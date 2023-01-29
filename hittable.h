@@ -1,7 +1,9 @@
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
+#include "helpers.h"
 #include "ray.h"
+#include "vec3.h"
 
 struct hit_record {
     point3 point;

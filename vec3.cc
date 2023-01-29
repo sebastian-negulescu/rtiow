@@ -57,3 +57,12 @@ float vec3::length() const {
 float vec3::length_squared() const {
     return (m_values[0] * m_values[0] + m_values[1] * m_values[1] + m_values[2] * m_values[2]);
 }
+
+vec3 vec3::random_in_unit_sphere() {
+    while ( true ) {
+        vec3 random_vec3 = vec3::random( -1.0f, 1.0f );
+        if ( random_vec3.length_squared() < 1.0f ) {
+            return random_vec3;
+        }
+    }
+}
