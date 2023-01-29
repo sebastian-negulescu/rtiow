@@ -58,11 +58,23 @@ float vec3::length_squared() const {
     return (m_values[0] * m_values[0] + m_values[1] * m_values[1] + m_values[2] * m_values[2]);
 }
 
-vec3 vec3::random_in_unit_sphere() {
+vec3 random_in_unit_sphere() {
     while ( true ) {
         vec3 random_vec3 = vec3::random( -1.0f, 1.0f );
         if ( random_vec3.length_squared() < 1.0f ) {
             return random_vec3;
         }
     }
+}
+
+vec3 random_unit_vector() {
+    return unit_vector( random_in_unit_sphere() );
+}
+
+vec3 random_in_hemisphere( const vec3 & normal ) {
+    vec3 in_unit_sphere = random_in_unit_sphere();
+    if ( dot( normal, in_unit_sphere )  > 0.0f ) {
+        return in_unit_sphere;
+    }
+    return -in_unit_sphere;
 }
