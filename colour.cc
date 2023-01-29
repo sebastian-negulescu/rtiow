@@ -6,9 +6,9 @@ void write_colour( std::ostream & out, colour pixel_colour, unsigned int samples
     float b = pixel_colour.b();
 
     float scale = 1.0f / samples_per_pixel;
-    r *= scale;
-    g *= scale;
-    b *= scale;
+    r = sqrt( scale * r );
+    g = sqrt( scale * g );
+    b = sqrt( scale * b );
 
     out << static_cast<int>( 256 * clamp( r, 0.0f, 0.999f ) ) << ' '
         << static_cast<int>( 256 * clamp( g, 0.0f, 0.999f ) ) << ' '

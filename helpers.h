@@ -36,8 +36,4 @@ inline float random_float( float min, float max ) {
     return min + random_float() * ( max - min );
 }
 
-// common headers
-#include "ray.h"
-#include "vec3.h"
-
 #endif

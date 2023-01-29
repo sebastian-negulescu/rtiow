@@ -21,10 +21,17 @@ float hit_sphere( const point3 & center, float radius, const ray & r ) {
     }
 }
 
-colour ray_colour( const ray & r, const hittable & world) {
+colour ray_colour( const ray & r, const hittable & world, unsigned int depth ) {
     hit_record record;
-    if ( world.hit( r, 0.0f, infinity, record ) ) {
-        return 0.5f * ( record.normal + colour( 1.0f ) );
+
+    if ( depth <= 0 ) {
+        return colour( 0.0f );
+    }
+
+    if ( world.hit( r, 0.001f, infinity, record ) ) {
+        // return 0.5f * ( record.normal + colour( 1.0f ) );
+        point3 target = record.point + random_in_hemisphere( record.normal ); // record.normal + random_unit_vector();
+        return 0.5f * ray_colour( ray( record.point, target - record.point ), world, depth - 1 );
     }
 
     vec3 unit_direction = unit_vector( r.direction() );
@@ -40,6 +47,7 @@ int main() {
     const unsigned int image_width = 400;
     const unsigned int image_height = static_cast< int >( image_width / aspect_ratio );
     const unsigned int samples_per_pixel = 100;
+    const unsigned int max_depth = 50;
 
     // world
 
@@ -63,7 +71,7 @@ int main() {
                 float u = ( i + random_float() ) / ( image_width - 1 );
                 float v = ( image_height - 1 - j + random_float() ) / ( image_height - 1 );
                 ray r = cam.get_ray( u, v );
-                pixel_colour += ray_colour( r, world );
+                pixel_colour += ray_colour( r, world, max_depth );
             }
             write_colour( std::cout, pixel_colour, samples_per_pixel );
             

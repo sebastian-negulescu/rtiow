@@ -2,6 +2,7 @@
 #define COLOUR_H
 
 #include "helpers.h"
+#include "vec3.h"
 
 #include <iostream>
 
