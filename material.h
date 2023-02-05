@@ -30,4 +30,14 @@ class metal : public material {
     bool scatter( const ray & r_in, const hit_record & record, colour & attenuation, ray & scattered ) const override;
 };
 
+class dielectric : public material {
+    float m_ir;
+    static float reflectance( float cosine, float ref_idx );
+
+  public:
+    dielectric( float index_of_refraction );
+
+    bool scatter( const ray & r_in, const hit_record & record, colour & attenuation, ray & scattered ) const override;
+};
+
 #endif

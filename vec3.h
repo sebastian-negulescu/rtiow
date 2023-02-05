@@ -101,7 +101,8 @@ vec3 random_in_unit_sphere();
 vec3 random_unit_vector();
 vec3 random_in_hemisphere( const vec3 & normal );
 
-vec3 reflect(const vec3 & v, const vec3 & n );
+vec3 reflect( const vec3 & v, const vec3 & n );
+vec3 refract( const vec3 & uv, const vec3 & n, float etai_over_etat );
 
 using point3 = vec3;
 using colour = vec3;

@@ -62,7 +62,7 @@ int main() {
     hittable_list world;
 
     auto material_ground = make_shared< lambertian >( colour( 0.8f, 0.8f, 0.0f ) );
-    auto material_center = make_shared< lambertian >( colour( 0.7f, 0.3f, 0.3f ) );
+    auto material_center = make_shared< dielectric >( 1.5f );// make_shared< lambertian >( colour( 0.7f, 0.3f, 0.3f ) );
     auto material_left = make_shared< metal >( colour( 0.8f, 0.8f, 0.8f ), 0.3f );
     auto material_right = make_shared< metal >( colour ( 0.8f, 0.6f, 0.2f ), 1.0f );
 
