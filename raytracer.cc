@@ -59,8 +59,16 @@ int main() {
 
     // world
 
+    float R = cos( pi / 4.0f );
     hittable_list world;
 
+    auto material_left  = make_shared<lambertian>(colour(0,0,1));
+    auto material_right = make_shared<lambertian>(colour(1,0,0));
+
+    world.add(make_shared<sphere>(point3(-R, 0, -1), R, material_left));
+    world.add(make_shared<sphere>(point3( R, 0, -1), R, material_right));
+
+    /*
     auto material_ground = make_shared< lambertian >( colour( 0.8f, 0.8f, 0.0f ) );
     auto material_center = make_shared< dielectric >( 1.5f );// make_shared< lambertian >( colour( 0.7f, 0.3f, 0.3f ) );
     auto material_left = make_shared< metal >( colour( 0.8f, 0.8f, 0.8f ), 0.3f );
@@ -70,10 +78,11 @@ int main() {
     world.add( make_shared< sphere >( point3( 0.0f, 0.0f, -1.0f ), 0.5f, material_center ) );
     world.add( make_shared< sphere >( point3( -1.0f, 0.0f, -1.0f ), 0.5f, material_left ) );
     world.add( make_shared< sphere >( point3( 1.0f, 0.0f, -1.0f ), 0.5f, material_right ) );
+    */
 
     // camera
 
-    camera cam;
+    camera cam( 90.0f, aspect_ratio );
 
     std::cout << "P3" << std::endl << image_width << ' ' << image_height << std::endl << "255" << std::endl;
 

@@ -1,9 +1,11 @@
 #include "camera.h"
 
-camera::camera() {
-    const float aspect_ratio = 16.0f / 9.0f;
-    float viewport_height = 2.0f;
+camera::camera( float vfov, float aspect_ratio ) {
+    float theta = degrees_to_radians( vfov );
+    float h = tan( theta / 2.0f );
+    float viewport_height = 2.0f * h;
     float viewport_width = viewport_height * aspect_ratio;
+
     float focal_length = 1.0f;
 
     m_origin = point3( 0.0f );
