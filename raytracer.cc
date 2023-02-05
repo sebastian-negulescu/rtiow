@@ -62,18 +62,19 @@ int main() {
     hittable_list world;
 
     auto material_ground = make_shared< lambertian >( colour( 0.8f, 0.8f, 0.0f ) );
-    auto material_center = make_shared< dielectric >( 1.5f );// make_shared< lambertian >( colour( 0.7f, 0.3f, 0.3f ) );
-    auto material_left = make_shared< metal >( colour( 0.8f, 0.8f, 0.8f ), 0.3f );
-    auto material_right = make_shared< metal >( colour ( 0.8f, 0.6f, 0.2f ), 1.0f );
+    auto material_center = make_shared< lambertian >( colour( 0.1f, 0.2f, 0.5f ) );
+    auto material_left = make_shared< dielectric >( 1.5f );// make_shared< metal >( colour( 0.8f, 0.8f, 0.8f ), 0.3f );
+    auto material_right = make_shared< metal >( colour( 0.8f, 0.6f, 0.2f ), 0.0f );
 
     world.add( make_shared< sphere >( point3( 0.0f, -100.5f, -1.0f ), 100.0f, material_ground ) );
     world.add( make_shared< sphere >( point3( 0.0f, 0.0f, -1.0f ), 0.5f, material_center ) );
     world.add( make_shared< sphere >( point3( -1.0f, 0.0f, -1.0f ), 0.5f, material_left ) );
+    world.add( make_shared< sphere >( point3( -1.0f, 0.0f, -1.0f ), -0.45f, material_left ) );
     world.add( make_shared< sphere >( point3( 1.0f, 0.0f, -1.0f ), 0.5f, material_right ) );
 
     // camera
 
-    camera cam;
+    camera cam( point3( -2.0f, 2.0f, 1.0f ), point3( 0.0f, 0.0f, -1.0f ), vec3( 0.0f, 1.0f, 0.0f ), 20.0f, aspect_ratio );
 
     std::cout << "P3" << std::endl << image_width << ' ' << image_height << std::endl << "255" << std::endl;
 

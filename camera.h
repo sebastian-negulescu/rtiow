@@ -12,9 +12,15 @@ class camera {
     vec3 m_vertical;
 
   public:
-    camera();
+    camera( 
+        point3 lookfrom,
+        point3 lookat,
+        vec3 vup,
+        float vfov, 
+        float aspect_ratio
+    );
 
-    ray get_ray( float u, float v ) const;
+    ray get_ray( float s, float t ) const;
 
 };
 
