@@ -14,11 +14,11 @@ bool lambertian::scatter( const ray & r_in, const hit_record & record, colour & 
     return true;
 }
 
-metal::metal( const colour & a ) : m_albedo( a ) {}
+metal::metal( const colour & a, float fuzz ) : m_albedo( a ), m_fuzz( fuzz ) {}
 
 bool metal::scatter( const ray & r_in, const hit_record & record, colour & attenuation, ray & scattered ) const {
     vec3 reflected = reflect( unit_vector(r_in.direction()), record.normal );
-    scattered = ray( record.point, reflected );
+    scattered = ray( record.point, reflected + m_fuzz * random_in_unit_sphere() );
     attenuation = m_albedo;
     return dot( scattered.direction(), record.normal ) > 0;
 }
