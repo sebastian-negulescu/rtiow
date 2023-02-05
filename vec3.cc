@@ -58,6 +58,11 @@ float vec3::length_squared() const {
     return (m_values[0] * m_values[0] + m_values[1] * m_values[1] + m_values[2] * m_values[2]);
 }
 
+bool vec3::near_zero() const {
+    float epsilon = 0.00000001;
+    return ( fabs( m_values[0] ) < epsilon ) && ( fabs( m_values[1] ) < epsilon ) && ( fabs( m_values[2] ) < epsilon );
+}
+
 vec3 random_in_unit_sphere() {
     while ( true ) {
         vec3 random_vec3 = vec3::random( -1.0f, 1.0f );
@@ -77,4 +82,8 @@ vec3 random_in_hemisphere( const vec3 & normal ) {
         return in_unit_sphere;
     }
     return -in_unit_sphere;
+}
+
+vec3 reflect( const vec3 & v, const vec3 & n ) {
+    return v - 2 * dot( v, n ) * n;
 }

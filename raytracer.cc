@@ -4,6 +4,7 @@
 #include "hittable_list.h"
 #include "sphere.h"
 #include "camera.h"
+#include "material.h"
 
 #include <iostream>
 
@@ -30,8 +31,15 @@ colour ray_colour( const ray & r, const hittable & world, unsigned int depth ) {
 
     if ( world.hit( r, 0.001f, infinity, record ) ) {
         // return 0.5f * ( record.normal + colour( 1.0f ) );
-        point3 target = record.point + random_in_hemisphere( record.normal ); // record.normal + random_unit_vector();
-        return 0.5f * ray_colour( ray( record.point, target - record.point ), world, depth - 1 );
+        // point3 target = record.point + random_in_hemisphere( record.normal ); // record.normal + random_unit_vector();
+        // return 0.5f * ray_colour( ray( record.point, target - record.point ), world, depth - 1 );
+
+        ray scattered;
+        colour attenuation;
+        if ( record.material_ptr->scatter( r, record, attenuation, scattered ) ) {
+            return attenuation * ray_colour( scattered, world, depth - 1 );
+        }
+        return colour( 0.0f );
     }
 
     vec3 unit_direction = unit_vector( r.direction() );
@@ -52,8 +60,16 @@ int main() {
     // world
 
     hittable_list world;
-    world.add( make_shared< sphere >( point3( 0.0f, 0.0f, -1.0f ), 0.5f ) );
-    world.add( make_shared< sphere >( point3( 0.0f, -100.5f, -1.0f ), 100.0f ) );
+
+    auto material_ground = make_shared< lambertian >( colour( 0.8f, 0.8f, 0.0f ) );
+    auto material_center = make_shared< lambertian >( colour( 0.7f, 0.3f, 0.3f ) );
+    auto material_left = make_shared< metal >( colour( 0.8f, 0.8f, 0.8f ), 0.3f );
+    auto material_right = make_shared< metal >( colour ( 0.8f, 0.6f, 0.2f ), 1.0f );
+
+    world.add( make_shared< sphere >( point3( 0.0f, -100.5f, -1.0f ), 100.0f, material_ground ) );
+    world.add( make_shared< sphere >( point3( 0.0f, 0.0f, -1.0f ), 0.5f, material_center ) );
+    world.add( make_shared< sphere >( point3( -1.0f, 0.0f, -1.0f ), 0.5f, material_left ) );
+    world.add( make_shared< sphere >( point3( 1.0f, 0.0f, -1.0f ), 0.5f, material_right ) );
 
     // camera
 

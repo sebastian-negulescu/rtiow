@@ -5,9 +5,12 @@
 #include "ray.h"
 #include "vec3.h"
 
+class material;
+
 struct hit_record {
     point3 point;
     vec3 normal;
+    shared_ptr<material> material_ptr;
     float t;
     bool front_face;
 

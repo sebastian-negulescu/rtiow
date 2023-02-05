@@ -36,6 +36,8 @@ class vec3 {
     float length() const;
     float length_squared() const;
 
+    bool near_zero() const;
+
     inline static vec3 random() {
         return vec3( random_float(), random_float(), random_float() );
     }
@@ -98,6 +100,8 @@ class vec3 {
 vec3 random_in_unit_sphere();
 vec3 random_unit_vector();
 vec3 random_in_hemisphere( const vec3 & normal );
+
+vec3 reflect(const vec3 & v, const vec3 & n );
 
 using point3 = vec3;
 using colour = vec3;

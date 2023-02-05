@@ -3,7 +3,8 @@
 #include <cmath>
 
 sphere::sphere() : m_center( 0.0f ), m_radius( 0.0f ) {}
-sphere::sphere( point3 center, float radius ) : m_center( center ), m_radius( radius ) {}
+sphere::sphere( point3 center, float radius, shared_ptr< material > material ) 
+    : m_center( center ), m_radius( radius ), m_material_ptr( material ) {}
 
 bool sphere::hit( const ray & r, float t_min, float t_max, hit_record & record ) const {
     vec3 oc = r.origin() - m_center;
@@ -30,6 +31,7 @@ bool sphere::hit( const ray & r, float t_min, float t_max, hit_record & record )
     record.point = r.at( record.t );
     vec3 outward_normal = ( record.point - m_center ) / m_radius;
     record.set_face_normal( r, outward_normal );
+    record.material_ptr = m_material_ptr;
 
 
     return true;
