@@ -27,6 +27,6 @@ class metal : public material {
     metal( const colour & a );
 
     bool scatter( const ray & r_in, const hit_record & record, colour & attenuation, ray & scattered ) const override;
-}:
+};
 
 #endif
