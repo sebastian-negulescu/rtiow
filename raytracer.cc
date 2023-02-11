@@ -74,7 +74,12 @@ int main() {
 
     // camera
 
-    camera cam( point3( -2.0f, 2.0f, 1.0f ), point3( 0.0f, 0.0f, -1.0f ), vec3( 0.0f, 1.0f, 0.0f ), 20.0f, aspect_ratio );
+    point3 lookfrom(3.0f, 3.0f, 2.0f);
+    point3 lookat(0.0f,0.0f,-1.0f);
+    vec3 vup(0.0f,1.0f,0.0f);
+    float dist_to_focus = (lookfrom-lookat).length();
+    float aperture = 2.0f;
+    camera cam( lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus );
 
     std::cout << "P3" << std::endl << image_width << ' ' << image_height << std::endl << "255" << std::endl;
 

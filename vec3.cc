@@ -84,6 +84,15 @@ vec3 random_in_hemisphere( const vec3 & normal ) {
     return -in_unit_sphere;
 }
 
+vec3 random_in_unit_disk() {
+    while ( true ) {
+        vec3 random_vec3 = vec3( random_float( -1.0f, 1.0f ), random_float( -1.0f, 1.0f ), 0.0f );
+        if ( random_vec3.length_squared() < 1.0f ) {
+            return random_vec3;
+        }
+    }
+}
+
 vec3 reflect( const vec3 & v, const vec3 & n ) {
     return v - 2 * dot( v, n ) * n;
 }
