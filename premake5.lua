@@ -4,10 +4,12 @@ workspace 'raytracer'
 project 'raytracer'
     kind 'ConsoleApp' -- could change to WindowedApp in the future
     language 'C++'
+    includedirs{ '/usr/bin/include' }
+    links{ 'gsl', 'gslcblas' }
     targetdir 'bin/%{ cfg.buildcfg }'
 
     files { '*.h', '*.cc' }
-    flags { 'C++11' }
+    cppdialect 'C++11'
 
     filter 'configurations:Debug'
         defines { 'DEBUG' }

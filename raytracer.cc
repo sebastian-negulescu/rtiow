@@ -3,6 +3,7 @@
 #include "colour.h"
 #include "hittable_list.h"
 #include "sphere.h"
+#include "heart.h"
 #include "camera.h"
 #include "material.h"
 
@@ -55,7 +56,7 @@ int main() {
     const unsigned int image_width = 400;
     const unsigned int image_height = static_cast< int >( image_width / aspect_ratio );
     const unsigned int samples_per_pixel = 100;
-    const unsigned int max_depth = 50;
+    const unsigned int max_depth = 1;
 
     // world
 
@@ -66,19 +67,19 @@ int main() {
     auto material_left = make_shared< dielectric >( 1.5f );// make_shared< metal >( colour( 0.8f, 0.8f, 0.8f ), 0.3f );
     auto material_right = make_shared< metal >( colour( 0.8f, 0.6f, 0.2f ), 0.0f );
 
-    world.add( make_shared< sphere >( point3( 0.0f, -100.5f, -1.0f ), 100.0f, material_ground ) );
-    world.add( make_shared< sphere >( point3( 0.0f, 0.0f, -1.0f ), 0.5f, material_center ) );
-    world.add( make_shared< sphere >( point3( -1.0f, 0.0f, -1.0f ), 0.5f, material_left ) );
-    world.add( make_shared< sphere >( point3( -1.0f, 0.0f, -1.0f ), -0.45f, material_left ) );
-    world.add( make_shared< sphere >( point3( 1.0f, 0.0f, -1.0f ), 0.5f, material_right ) );
+    // world.add( make_shared< sphere >( point3( 0.0f, -100.5f, -1.0f ), 100.0f, material_ground ) );
+    world.add( make_shared< heart >( point3( 0.0f, 0.0f, -1.0f ), 0.5f, material_center ) );
+    // world.add( make_shared< sphere >( point3( -1.0f, 0.0f, -1.0f ), 0.5f, material_left ) );
+    // world.add( make_shared< sphere >( point3( -1.0f, 0.0f, -1.0f ), -0.45f, material_left ) );
+    // world.add( make_shared< sphere >( point3( 1.0f, 0.0f, -1.0f ), 0.5f, material_right ) );
 
     // camera
 
-    point3 lookfrom(3.0f, 3.0f, 2.0f);
+    point3 lookfrom(0.0f, 0.0f, 3.0f);
     point3 lookat(0.0f,0.0f,-1.0f);
     vec3 vup(0.0f,1.0f,0.0f);
     float dist_to_focus = (lookfrom-lookat).length();
-    float aperture = 2.0f;
+    float aperture = 0.0f;
     camera cam( lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus );
 
     std::cout << "P3" << std::endl << image_width << ' ' << image_height << std::endl << "255" << std::endl;
